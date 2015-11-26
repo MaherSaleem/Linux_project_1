@@ -11,18 +11,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Stack.h"
+#include "Stack_Interpreter.h"
 int main() {
 
 
-	Stack s = init_stack();
-	push(s ,"1130" ,INTEGER );
-	push (s , "c" , CHAR);
+	setbuf(stdout, NULL);
 
+	start_interpreter();
+//	Stack s = init_stack();
+//	push(s ,"1130" ,INTEGER );
+//	push (s , "c" , CHAR);
+//
 
-	printStack(s);
-
-	printf("%s\n" , pop(s)->data);
-	printf("%s\n" , pop(s)->data);
+//	printStack(s);
+//
+//	printf("%s\n" , pop(s)->data);
+//	printf("%s\n" , pop(s)->data);
 
 
 	return EXIT_SUCCESS;

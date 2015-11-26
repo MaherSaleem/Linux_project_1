@@ -19,6 +19,8 @@ int main() {
 	push (s , "c" , CHAR);
 
 
+	printStack(s);
+
 	printf("%s\n" , pop(s)->data);
 	printf("%s\n" , pop(s)->data);
 

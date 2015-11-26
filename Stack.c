@@ -42,4 +42,12 @@ void push(Stack s ,char * data , int type  ){
 	s->next = new;
 }
 
+void printStack(Stack s){
+	if(s->next != NULL){
+		printf("%s\n" , s->next->data);
+		printStack(s->next);
+	}
+
+}
+
 

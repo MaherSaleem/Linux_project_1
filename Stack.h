@@ -60,5 +60,8 @@ void push(Stack s ,char * data , int type  );
  */
 int isEmpty(Stack s);
 
-
+/*
+ * function to print stack recursively
+ */
+void printStack(Stack s);
 #endif /* STACK_H_ */

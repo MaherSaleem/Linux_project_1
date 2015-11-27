@@ -18,14 +18,13 @@ void start_interpreter(){
 	//TODO say welcome to my program
 	Stack s = init_stack();
 	char input [30] ;
-	printf(">");
+	printf("\n>  ");
 	scanf("%s" , input);
-//	int isValid = check_input(input);
+	printf("\n");
 	while(strcmp(input , "x") != 0){//while the input in not "x"(exit)
 
 		//not valid input
 		int type_of_input = check_input(input);
-//		printf("%d" , type_of_input);
 		if(type_of_input == NOT_VALID_INPUT){
 			printf("undefined command\n");
 			goto end;
@@ -36,19 +35,31 @@ void start_interpreter(){
 		else if(type_of_input == INTEGER)
 			doIntCommand(s , input );
 
+		//if the type is operatiom (+ , & , | , ^ ) , we just push it to the stack
+		else if(type_of_input == OPERATION)
+			push(s , input , OPERATION);
+
+
 		else if (type_of_input == CHAR)
 		{
 			//if user enter p , we print the contenet of stack
 			if(input[0] == 'p')
 				doPComand(s);
 			if(input[0] == 'd')
-				doDCommand(s);
+				push(s , "d" , CHAR);//add this char to stack
+			if(input[0] == 's')
+				push(s , "s" , CHAR);//add this char to stack
+			if(input[0] == 'e')
+				doECommand(s );
 		}
 
 
+
 		end:
-		printf(">");
+		printf("\n>  ");
 		scanf("%s" , input);
+		printf("\n");
+
 	}
 }
 
@@ -62,6 +73,10 @@ int check_input(char * s){
 	{
 		if(s[0] == 's' || s[0] == 'e' || s[0] == 'p' || s[0] == 'd' || s[0] == 'x')
 			return CHAR;
+
+		else if(s[0] == '+' || s[0] == '&' || s[0] == '|' || s[0] == '^')
+			return OPERATION;
+
 
 		else if(isdigit(s[0]))
 			return INTEGER;
@@ -108,4 +123,67 @@ void doDCommand(Stack s){
 	else{
 		pop(s);
 	}
+
+}
+
+/*
+ *
+ */
+void doECommand(Stack s){
+	NodePtr p = getTop(s);
+	if(p->type == OPERATION){
+		calaulate(s  , p->data[0] );//send the opeartion to calculate it
+	}
+	else if(p->type == CHAR){
+		pop(s);//remove this letter
+		if(p->data[0] == 'd')
+			doDCommand(s);
+		else if(p->data[0] == 's')
+			doSCommad(s);
+	}
+}
+
+void doSCommad(Stack s){
+	if(s->next != NULL && s->next->next != NULL)//check if there is two nodes to swap them
+	{
+		NodePtr temp1 = pop(s);
+		NodePtr temp2 = pop(s);
+		push(s , temp1->data , temp1->type);
+		push(s , temp2->data , temp2->type);
+
+
+	}
+	else{
+		printf("there is less than two element , you can't do swap !!\n");
+		push(s , "s" , CHAR);//the s returned to stack , it can be removed manully using d
+	}
+}
+
+void calaulate(Stack s , char type){
+	pop(s);//remove the operation
+
+	char buffer[20];//to store the number in it
+	//check if there is two nodes and that they are integers
+	if(s->next != NULL && s->next->type == INTEGER
+		&& s->next->next != NULL && s->next->next->type == INTEGER){
+		if(type == '+')
+		push(s , itoa(atoi(pop(s)->data) + atoi(pop(s)->data) ,buffer , 10 ) , INTEGER);
+		else if(type == '|')
+			push(s , itoa(atoi(pop(s)->data) | atoi(pop(s)->data) ,buffer , 10 ) , INTEGER);
+		else if(type == '&')
+			push(s , itoa(atoi(pop(s)->data) & atoi(pop(s)->data) ,buffer , 10 ) , INTEGER);
+		else if(type == '^')
+			push(s , itoa(atoi(pop(s)->data) ^ atoi(pop(s)->data) ,buffer , 10 ) , INTEGER);
+		else
+			printf("error\n");
+
+	}
+	else {
+		printf("there is an error with this operation \n");
+		char tempStr [2];
+		tempStr[0] = type;
+		tempStr[1]  = '\0';
+		push(s ,tempStr , OPERATION );//return the op the the top of the stack
+	}
+
 }

@@ -36,7 +36,25 @@ void doIntCommand(Stack s , char * input);
 void doPComand(Stack s);
 
 /*
- *
+ *this function is used to remove the top of the stack
+ *when there is letter d in the top
  */
 void doDCommand(Stack s);
+
+
+/*
+ *evalaute according to the char in the top of the stack
+ */
+void doECommand(Stack s);
+
+
+/*
+ * swap to two top element in the stack
+ */
+void doSCommad(Stack s);
+
+/*
+ *
+ */
+void calaulate(Stack s , char type);
 #endif /* STACK_INTERPRETER_H_ */

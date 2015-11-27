@@ -12,6 +12,7 @@
 //define the type in the stack , INTEGER or CHAR
 #define  INTEGER 1
 #define CHAR 2
+#define OPERATION 3
 
 typedef struct node Node;
 typedef Node* Stack;
@@ -64,4 +65,11 @@ int isEmpty(Stack s);
  * function to print stack recursively
  */
 void printStack(Stack s);
+
+
+/*
+ * this function return a pointer to the top of stack
+ * without removing it from stack
+ */
+NodePtr getTop(Stack s);
 #endif /* STACK_H_ */

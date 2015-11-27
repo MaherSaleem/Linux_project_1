@@ -9,7 +9,7 @@
 #include <string.h>
 #include "Stack.h"
 #include "Stack_Interpreter.h"
-
+#include <ctype.h>//for isdigit function
 /*
  *
  */
@@ -159,31 +159,36 @@ void doSCommad(Stack s){
 	}
 }
 
-void calaulate(Stack s , char type){
+void calaulate(Stack s , char type){//type referce to operation type
 	pop(s);//remove the operation
 
 	char buffer[20];//to store the number in it
 	//check if there is two nodes and that they are integers
 	if(s->next != NULL && s->next->type == INTEGER
 		&& s->next->next != NULL && s->next->next->type == INTEGER){
+			
 		if(type == '+')
-		push(s , itoa(atoi(pop(s)->data) + atoi(pop(s)->data) ,buffer , 10 ) , INTEGER);
+			sprintf(buffer , "%d" ,atoi(pop(s)->data) + atoi(pop(s)->data));//convert the answer to string
 		else if(type == '|')
-			push(s , itoa(atoi(pop(s)->data) | atoi(pop(s)->data) ,buffer , 10 ) , INTEGER);
+			sprintf(buffer , "%d" ,atoi(pop(s)->data) | atoi(pop(s)->data));
 		else if(type == '&')
-			push(s , itoa(atoi(pop(s)->data) & atoi(pop(s)->data) ,buffer , 10 ) , INTEGER);
+			sprintf(buffer , "%d" ,atoi(pop(s)->data) & atoi(pop(s)->data));
 		else if(type == '^')
-			push(s , itoa(atoi(pop(s)->data) ^ atoi(pop(s)->data) ,buffer , 10 ) , INTEGER);
+			sprintf(buffer , "%d" ,atoi(pop(s)->data) ^ atoi(pop(s)->data));
 		else
 			printf("error\n");
+			
+		//push the result in the stack
+		push(s , buffer , INTEGER);
 
+
+;
 	}
 	else {
 		printf("there is an error with this operation \n");
-		char tempStr [2];
-		tempStr[0] = type;
-		tempStr[1]  = '\0';
-		push(s ,tempStr , OPERATION );//return the op the the top of the stack
+		buffer[0] = type;
+		buffer[1] = '\0';
+		push(s ,buffer , OPERATION );//return the op the the top of the stack
 	}
 
 }

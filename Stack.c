@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Stack.h"
-
+#include <string.h>
 NodePtr  newNode(char * data , int type )
 {
 	NodePtr new  = (NodePtr)malloc(sizeof(Node));

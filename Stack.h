@@ -27,7 +27,7 @@ typedef struct node{
 	char  data [30];
 	int type;
 	Node * next;
-};
+}s;
 
 /*
  * this function create new node for the stack

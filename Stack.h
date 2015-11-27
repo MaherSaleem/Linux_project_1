@@ -23,7 +23,7 @@ typedef Node* NodePtr;
  */
 
 typedef struct node{
-	char * data;
+	char  data [30];
 	int type;
 	Node * next;
 };

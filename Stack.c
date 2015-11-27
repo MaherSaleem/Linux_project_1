@@ -12,14 +12,14 @@
 NodePtr  newNode(char * data , int type )
 {
 	NodePtr new  = (NodePtr)malloc(sizeof(Node));
-	new->data = data;
+	strcpy(new->data , data);
 	new->type = type;
 	new->next = NULL;
 	return new;
 }
 
 Stack init_stack(){
-	Stack s = newNode(NULL , 0);//dummy header
+	Stack s = newNode("" , 0);//dummy header
 	return s;
 }
 

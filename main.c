@@ -18,9 +18,20 @@ int main() {
 	setbuf(stdout, NULL);
 
 	start_interpreter();
+//	char ss [30];
 //	Stack s = init_stack();
+//	scanf("%s" , ss);
+//	doIntCommand(s , ss);
+//	scanf("%s" , ss);
+//	doIntCommand(s , ss);
+//	doPComand(s);
 //	push(s ,"1130" ,INTEGER );
 //	push (s , "c" , CHAR);
+//	push(s ,"11301" ,INTEGER );
+//	push(s ,"1132" ,INTEGER );
+//	push(s ,"1133" ,INTEGER );
+
+//	printStack(s);
 //
 
 //	printStack(s);
